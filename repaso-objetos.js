@@ -272,6 +272,19 @@ console.log(edadEstudiantesActivos)
 cursoReact.nivel = "Intermedio";
 console.log(cursos);
 
-estudiantes.forEach() {
+// 8.
+// 1️⃣ Agregas la función que RETORNA el string
+estudiantes.forEach(est => {
+    est.describirEstudiante = function () {
+        return `${this.nombre} está inscrito en ${this.curso}, tiene ${this.edad} años y está ${this.activo ? "activo" : "inactivo"}.`;
+    };
+});
 
-}
+// 2️⃣ Usas map para crear un array de descripciones
+const descripciones = estudiantes.map(est => est.describirEstudiante());
+
+console.log(descripciones);
+
+
+
+
