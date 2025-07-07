@@ -118,7 +118,7 @@ console.log(cursosConCupos);
 // 10.
 
 const descripcionCurso = cursos.map(curso => {
-    return `Curso ${curso.nombre} (Nivel: ${curso.nivel}) — Cupos: ${curso.cupos}`
+    return `Curso ${curso.nombre} —  (Nivel: ${curso.nivel}) — Cupos: ${curso.cupos}`
 
 })
 
