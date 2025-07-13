@@ -88,7 +88,7 @@ console.log(reprobados);
 // según su promedio.
 
 promedios.forEach(est => {
-    if (est.promedio > 70) {
+    if (est.promedio >= 70) {
         console.log(`${est.nombre} tiene un promedio de ${est.promedio}: Aprobado`)
     } else {
         console.log(`${est.nombre} tiene un promedio de ${est.promedio}: Reprobado`)
