@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/DOM/gestor-tareas.css">
+    <title>Gestor de tareas</title>
+</head>
+
+<body>
+    <div class="container-gestor-tareas">
+        <h1>Gestor de Tareas</h1>
+
+        <!-- Formulario para agregar tarea -->
+        <form id="form-tarea">
+            <input type="text" id="input-tarea" placeholder="Ingrese la tarea" required>
+            <button type="submit">Agregar</button>
+        </form>
+
+        <!-- Tabla de tareas -->
+        <div class="container-tareas">
+            <table>
+                <colgroup>
+                    <col class="col-tarea">
+                    <col class="col-acciones">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>Tarea</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-tareas"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/DOM/gestor-tareas.js"></script>
+</body>
+
+</html>
