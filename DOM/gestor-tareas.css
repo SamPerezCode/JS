@@ -1,4 +1,4 @@
-/* 🎨 Reseteo básico para evitar estilos raros del navegador */
+/* 🎨 Reseteo básico */
 * {
     margin: 0;
     padding: 0;
@@ -6,121 +6,198 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f4;
-    /* Claro */
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
     color: #333;
     display: flex;
     justify-content: center;
-    padding: 20px;
+    padding: 24px;
 }
 
-/* 📦 Contenedor principal */
+/* Contenedor principal */
 .container-gestor-tareas {
     background-color: #fff;
     width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 760px;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-align: center;
 }
 
-/* 📝 Input de nueva tarea */
-input {
+.container-gestor-tareas:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px rgba(16, 24, 40, 0.12);
+}
+
+/* ===== FORM (input + button) ===== */
+/* Usamos el id del formulario para apuntar con precisión */
+#form-tarea {
     display: flex;
-    margin-bottom: 25px;
+    gap: 12px;
+    margin: 18px 0 22px 0;
+    align-items: center;
 }
 
-input {
+/* Input */
+#form-tarea input[type="text"],
+#form-tarea input[type="search"] {
     flex: 1;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #d8dee9;
+    background: #fbfdff;
     font-size: 1rem;
+    color: #111827;
     outline: none;
-    transition: border-color 0.3s;
+    transition: box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
-.input input:focus {
-    border-color: #007bff;
+#form-tarea input:focus {
+    border-color: #2563eb;
+    /* azul */
+    box-shadow: 0 6px 18px rgba(37, 99, 235, 0.12);
 }
 
-/* 📋 Tabla */
+/* Botón Agregar (submit) */
+#form-tarea button[type="submit"] {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(180deg, #2563eb, #1e50d1);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.14);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+}
+
+#form-tarea button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.18);
+}
+
+#form-tarea button[type="submit"]:active {
+    transform: translateY(0);
+    opacity: 0.96;
+}
+
+/* ===== Tabla ===== */
 table {
     width: 100%;
     border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
 }
 
 thead {
-    background-color: #007bff;
+    background-color: #0b63ff;
     color: white;
 }
 
 thead th {
-    padding: 10px;
+    padding: 12px 14px;
     text-align: left;
+    font-weight: 600;
+    font-size: 0.95rem;
 }
 
 tbody tr {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #f0f2f7;
+    transition: background-color 0.14s;
+}
+
+tbody tr:hover {
+    background-color: #fbfbff;
 }
 
 tbody td {
-    padding: 10px;
+    padding: 12px 14px;
+    vertical-align: middle;
 }
 
-/* 🎯 Botones de acciones */
-button {
-    padding: 6px 10px;
-    margin: 0 3px;
-    border: none;
-    border-radius: 4px;
+/* tarea completada */
+.completada {
+    text-decoration: line-through;
+    color: #8b8f98;
+}
+
+/* Botones de acción (completar / eliminar) */
+.btn-completar,
+.btn-eliminar {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 0;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: background-color 0.3s;
+    transition: transform 0.12s ease, opacity 0.12s;
 }
 
-.btn-editar {
-    background-color: #ffc107;
-    color: #333;
+.btn-completar {
+    background-color: #10b981;
+    color: white;
+    margin-right: 8px;
 }
 
-.btn-editar:hover {
-    background-color: #e0a800;
+.btn-completar:hover {
+    transform: translateY(-2px);
 }
 
 .btn-eliminar {
-    background-color: #dc3545;
+    background-color: #ef4444;
     color: white;
 }
 
 .btn-eliminar:hover {
-    background-color: #c82333;
+    transform: translateY(-2px);
 }
 
-/* 🌙 Modo oscuro */
+/* Responsive: en pantallas pequeñas apilamos form vertical */
+@media (max-width: 520px) {
+    #form-tarea {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #form-tarea button[type="submit"] {
+        width: 100%;
+    }
+
+    thead th {
+        font-size: 0.85rem;
+    }
+}
+
+/* Modo oscuro (prefers-color-scheme) */
 @media (prefers-color-scheme: dark) {
     body {
-        background-color: #121212;
-        color: #f4f4f4;
+        background: linear-gradient(135deg, #0f1724, #0b1220);
+        color: #e6eef8;
     }
 
     .container-gestor-tareas {
-        background-color: #1e1e1e;
-        /* box-shadow: 0 4px 8px rgba(255, 255, 255, 0.05); */
+        background-color: #0f1720;
+        box-shadow: 0 8px 24px rgba(2, 6, 23, 0.7);
     }
 
-    .input input {
-        background-color: #2b2b2b;
-        border: 1px solid #444;
-        color: #f4f4f4;
+    #form-tarea input {
+        background: #0b1220;
+        border: 1px solid #22303f;
+        color: #e6eef8;
+    }
+
+    table {
+        background: #0b1220;
+        color: #e6eef8;
     }
 
     thead {
-        background-color: #0d6efd;
+        background-color: #0753d6;
     }
 
-    tbody tr {
-        border-color: #333;
+    tbody tr:hover {
+        background-color: rgba(255, 255, 255, 0.02);
     }
 }

@@ -227,4 +227,28 @@ Eliminar tarea: guardar después de quitarla.
 Marcar completada: guardar después de cambiar task.completed.
 
 Así aseguramos que siempre se actualice lo que hay en memoria.
+
+
+
+
+
+
+
+
+
+-------------------------------
+Explicación de los cambios
+1. let tasks = [] ahora se carga desde localStorage
+Antes siempre empezaba vacío, ahora en cargarDesdeLocalStorage() revisa si existe "tasks" en localStorage, y si existe, lo convierte de JSON a array.
+
+2. guardarEnLocalStorage()
+Después de cualquier cambio (agregar, eliminar, completar), convertimos tasks en texto JSON y lo guardamos.
+
+3. Eventos que ahora guardan datos:
+--En submit después de tasks.push(...)
+--En eliminarTarea después de modificar el array
+--En toggleCompletar después de cambiar el estado
+
+4. Al cargar la página
+Se llama cargarDesdeLocalStorage() y luego renderAll() para mostrar lo que haya.
 */
