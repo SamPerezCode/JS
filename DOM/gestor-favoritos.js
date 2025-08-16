@@ -42,3 +42,96 @@ Requisitos:
 -- Manipulación del DOM con createElement o innerHTML.
 
 */
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const formPelis = document.getElementById('form-pelis');
+    const inputPelis = document.getElementById('input-pelicula');
+    const tbodyPelis = document.getElementById('tbody-pelis');
+
+    let movies = [];
+
+    function crearPelis(nombre) {
+        return {
+            id: Date.now().toString(),
+            nombre: nombre.trim()
+        }
+    };
+
+    // Renderizar una pelicula
+    function renderPelis(peli) {
+        const tr = document.createElement('tr');
+        tr.dataset.id = peli.id;
+
+        const tdNombre = document.createElement('td');
+        tdNombre.textContent = peli.nombre;
+
+        const tdAcciones = document.createElement('td');
+        const btnEliminar = document.createElement('button');
+        const btnEditar = document.createElement('button');
+
+
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.className = 'btn-eliminar';
+        btnEliminar.dataset.id = peli.id;
+
+        btnEditar.textContent = 'Editar';
+        btnEditar.className = 'btn-editar';
+        btnEditar.dataset.id = peli.id;
+
+        tdAcciones.appendChild(btnEliminar);
+        tdAcciones.appendChild(btnEditar);
+
+        tr.appendChild(tdNombre);
+        tr.appendChild(tdAcciones);
+
+        tbodyPelis.appendChild(tr)
+
+    }
+
+
+
+    // manejo del submit
+    formPelis.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nombre = inputPelis.value;
+        if (!nombre.trim()) {
+            alert("Ingrese un nombre valido")
+            return;
+        }
+
+        const nueva = crearPelis(nombre);
+        movies.push(nueva);
+        renderPelis(nueva);
+
+
+        inputPelis.value = '';
+        inputPelis.focus();
+
+        console.log(movies);
+
+    });
+
+    // Eliminar
+    // Escuchar clicks en el tbody (delegación)
+    tbodyPelis.addEventListener('click', (e) => {
+        if (e.target.classList.contains('btn-eliminar')) {
+            const id = e.target.dataset.id; // obtenemos el id de la peli
+
+            // quitar del array
+            movies = movies.filter(peli => peli.id !== id);
+
+            // quitar del DOM
+            e.target.closest('tr').remove();
+
+            console.log("Película eliminada:", id, movies);
+        }
+    });
+
+
+
+
+
+});

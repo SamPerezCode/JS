@@ -4,10 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="">
     <title>Gestor de Favoritos</title>
 </head>
 
 <body>
+
+    <div class="container-gestor">
+        <div class="input">
+            <form id="form-pelis">
+                <input type="text" placeholder="Nombre de pelicula" id="input-pelicula" required>
+                <button type="submit">Agregar</button>
+            </form>
+        </div>
+
+        <div class="table-pelis">
+            <table>
+                <colgroup>
+                    <col class="Nombre">
+                    <col class="Acciones">
+                </colgroup>
+
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tbody-pelis">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <script src="./gestor-favoritos.js"></script>
 </body>
 
