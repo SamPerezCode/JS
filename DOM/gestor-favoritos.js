@@ -76,18 +76,32 @@ document.addEventListener('DOMContentLoaded', () => {
         btnEliminar.className = 'btn-eliminar';
         btnEliminar.dataset.id = peli.id;
 
-        btnEditar.textContent = 'Editar';
-        btnEditar.className = 'btn-editar';
-        btnEditar.dataset.id = peli.id;
+        // btnEditar.textContent = 'Editar';
+        // btnEditar.className = 'btn-editar';
+        // btnEditar.dataset.id = peli.id;
 
         tdAcciones.appendChild(btnEliminar);
-        tdAcciones.appendChild(btnEditar);
+        // tdAcciones.appendChild(btnEditar);
 
         tr.appendChild(tdNombre);
         tr.appendChild(tdAcciones);
 
         tbodyPelis.appendChild(tr)
 
+    }
+
+    // 🔹 Guardar en localStorage
+    function saveMovies() {
+        localStorage.setItem("movies", JSON.stringify(movies));
+    }
+
+    // 🔹 Cargar desde localStorage
+    function loadMovies() {
+        const stored = localStorage.getItem("movies");
+        if (stored) {
+            movies = JSON.parse(stored);
+            movies.forEach(renderPelis);
+        }
     }
 
 
@@ -105,10 +119,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const nueva = crearPelis(nombre);
         movies.push(nueva);
         renderPelis(nueva);
+        saveMovies();
 
 
         inputPelis.value = '';
         inputPelis.focus();
+
 
         console.log(movies);
 
@@ -123,15 +139,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // quitar del array
             movies = movies.filter(peli => peli.id !== id);
 
-            // quitar del DOM
+            // quitar del array
             e.target.closest('tr').remove();
+
+            // quitar del DOM
+            saveMovies();
 
             console.log("Película eliminada:", id, movies);
         }
+
+
     });
 
-
-
-
+    // Cargar al inciar la app, cargamos desde el localStorage
+    loadMovies();
 
 });
