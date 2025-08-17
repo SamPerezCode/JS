@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./pelis-dinamic.css">
+    <title>🎬 Gestor de peliculas favoritas </title>
+
+
+</head>
+
+<body>
+
+    <div class="container-pelis">
+        <div class="container-form">
+            <form id="form-pelis">
+                <h3>Agregar Pelicula</h3>
+                <input type="text" id="nombre-pelicula" placeholder="Escribe una película">
+                <input type="text" id="genero" placeholder="Género">
+                <input type="number" id="año-estreno" placeholder="Año de estreno">
+                <button id="agregar-pelicula" type="submit">Agregar Pelicula</button>
+
+            </form>
+        </div>
+        <div class="container-table">
+            <table border="1" id="movie-table">
+                <thead class="thead">
+                    <th>Nombre Pelicula</th>
+                    <th>Género</th>
+                    <th>Año de estreno</th>
+                    <th>Acción</th>
+                </thead>
+                <tbody id="tbody-peliculas"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/DOM/pelis-dinamic.js"></script>
+</body>
+
+</html>
