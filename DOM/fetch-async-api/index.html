@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>feth</title>
+    <style>
+        /* Contenedor tipo grid */
+        #lista-poke {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            list-style: none;
+            padding: 0;
+        }
+
+        /* Tarjetas */
+        .cards {
+            background: #f8f8f8;
+            border-radius: 10px;
+            padding: 15px;
+            width: 180px;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+        }
+
+        .cards:hover {
+            transform: scale(1.05);
+        }
+
+        .cards img {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pokemons</h1>
+    <div id="lista-poke">
+
+    </div>
+    <script src="./fetch.js"></script>
+</body>
+
+</html>

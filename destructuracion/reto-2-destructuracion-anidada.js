@@ -64,6 +64,4 @@ const pedido = {
 // Imprime:
 // Cliente: Ana Gómez, Ciudad: Medellín
 
-function mostrarCliente() {
 
-}
