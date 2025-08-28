@@ -5,10 +5,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temporizadores</title>
+
+    <style>
+        .pokemons {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+
+        }
+
+        .pokemons div {
+            width: 400;
+            border: 1px solid black;
+        }
+
+        .card-pokemon {
+            background-color: rgb(217, 200, 233);
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+
+
+        }
+
+        .card-pokemon img {
+            width: 100px;
+        }
+
+        .title h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 800;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <script src="./main.js"></script>
+    <div class="title">
+        <h1>Pokemons</h1>
+    </div>
+
+
+    <div class="pokemons">
+
+    </div>
+
+
+    <script src="./pokeApi.js"></script>
 </body>
 
 </html>
