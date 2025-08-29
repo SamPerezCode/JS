@@ -33,8 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Evento para restar
     btnRestar.addEventListener("click", () => {
-        contador--;
-        valorContador.textContent = `Contador: ${contador}`;
+        if (contador >= 1) {
+            contador--;
+            valorContador.textContent = `Contador: ${contador}`;
+        } else {
+            alert('No se puede restar a 0')
+        }
+
     });
 
 });
