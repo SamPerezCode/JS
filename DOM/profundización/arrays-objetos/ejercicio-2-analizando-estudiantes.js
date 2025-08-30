@@ -28,19 +28,114 @@ const estudiantes = [
 // 1.
 const listaNombresEstudiantes = estudiantes.map(e => e.nombre);
 console.log(listaNombresEstudiantes);
+// -------------------------------------------------------
+
 // 2.
 const estudiantesReact = estudiantes.filter(e => e.curso === "React");
 console.log(estudiantesReact);
+// -------------------------------------------------------
+
 // 3.
 
 const estudianteId3 = estudiantes.find(e => e.id === 3);
 console.log(estudianteId3);
+// -------------------------------------------------------
+
 // 4. 
 const estudianteMenor18 = estudiantes.some(e => e.edad < 18);
 console.log(estudianteMenor18);
+// -------------------------------------------------------
+
 // 5. 
 function promedioCalificaciones() {
-    const sumaCalificaciones = estudiantes.reduce((acc, e) => acc + e.calificaciones.forEach, 0)
-    console.log(sumaCalificaciones)
+    const sumaCalificaciones = estudiantes.reduce((acc, e) => {
+        const sumaAlumno = e.calificaciones.reduce((suma, c) => suma + c, 0);
+
+        return acc + sumaAlumno;
+    }, 0);
+
+    const totalNotas = estudiantes.reduce((acc, e) => acc + e.calificaciones.length, 0);
+
+    const promedioGeneral = sumaCalificaciones / totalNotas
+    console.log(promedioGeneral)
+
 }
 promedioCalificaciones()
+
+// -------------------------------------------------------
+// .6
+
+const promedioTotal = estudiantes.map(e => {
+    const sumaNotas = e.calificaciones.reduce((acc, nota) => acc + nota, 0)
+    const promedio = sumaNotas / e.calificaciones.length
+    return {
+        nombre: e.nombre,
+        curso: e.curso,
+        promedio: promedio
+    }
+})
+console.log(promedioTotal)
+
+// Ordenar de mayor a menor 
+const promedioTotalOrdenado = promedioTotal.sort((a, b) => b.promedio - a.promedio);
+console.log(promedioTotalOrdenado)
+
+// promedioPorEstudiante()
+console.clear()
+
+
+// 7
+function mejorEstReact() {
+    const estReact = promedioTotalOrdenado.filter(est => est.curso === 'React');
+    console.log(estReact)
+    const mejor = estReact.reduce((max, est) => {
+        return (est.promedio > max.promedio) ? est : max;
+    });
+
+    console.log("El mejor estudiante de React es:", mejor.nombre, "con promedio:", mejor.promedio);
+}
+
+mejorEstReact()
+
+/*
+1. ¿Qué es .reduce?
+
+--reduce recorre un array y acumula un solo valor.
+--Ese valor acumulado puede ser un número, un objeto o lo que quieras.
+
+----Se usan dos parámetros principales:
+----max → el acumulador (lo que llevas hasta ahora).
+
+est → el elemento actual del array.
+
+2. Cómo funciona en este caso
+
+--estReact es un array de estudiantes de React.
+
+--Queremos quedarnos con el que tenga el promedio más alto.
+
+En cada iteración:
+
+--Compara est.promedio (promedio del estudiante actual) con max.promedio (el mejor promedio encontrado hasta ahora).
+--Si el promedio del actual (est) es mayor → lo devuelve como el nuevo max.
+--Si no → mantiene el que ya estaba (max).
+
+otra forma con un for
+
+function mejorEstReactFor() {
+    const estReact = promedioTotalOrdenado.filter(est => est.curso === 'React');
+
+    let mejor = estReact[0]; // arrancamos suponiendo que el primero es el mejor
+
+    for (let i = 1; i < estReact.length; i++) {
+        if (estReact[i].promedio > mejor.promedio) {
+            mejor = estReact[i]; // reemplazo al mejor actual
+        }
+    }
+
+    console.log("El mejor estudiante de React es:", mejor);
+}
+
+
+*/
+
