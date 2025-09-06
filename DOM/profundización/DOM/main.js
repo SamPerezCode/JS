@@ -14,37 +14,101 @@ const estudiantes = [
 document.addEventListener('DOMContentLoaded', () => {
     const buscador = document.querySelector('#buscador');
     const listaEstudiantes = document.querySelector('#lista-estudiantes');
-    const tbody = document.getElementById('tbody');
-    const table = document.querySelector('table');
-    const paginacion = document.querySelector('#paginacion');
+    const btnAnterior = document.querySelector('#prev');
+    const btnSiguiente = document.querySelector('#next');
+    const actual = document.querySelector('#pagina-actual');
 
-    const promedioCalEstudiante = estudiantes.map(e => {
-        const sumaCalificaciones = e.calificaciones.reduce((acc, suma) => acc + suma, 0);
-        const promedioCalificaiones = sumaCalificaciones / e.calificaciones.length;
-        return promedioCalificaiones;
-    })
+    let paginaActual = 1;
+    const itemsPorPagina = 3;
+    let listaActiva = [...estudiantes]; // <-- puede ser el array completo o el filtrado
 
-    console.log(promedioCalEstudiante)
-    estudiantes.forEach((e, index) => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        // Haciendo como unas cards
-        card.innerHTML = `
-            <h3>${e.nombre} (${e.edad} años)</h3>
-            <p>Curso: ${e.curso}</p>
-            <p>Nota promedio: ${promedioCalEstudiante[index]}</p>
-        `;
+    // función que pinta cards (recibe el array a pintar)
+    function renderEstudiantes(lista) {
+        listaEstudiantes.innerHTML = ""; // limpio antes de renderizar
+        lista.forEach(e => {
+            const suma = e.calificaciones.reduce((acc, c) => acc + c, 0);
+            const promedio = (suma / e.calificaciones.length).toFixed(2);
 
-        // Haciendolo como tabla
-        // tbody.innerHTML += `
-        //     <tr>
-        //         <td><h3>${e.nombre}</h3></td>
-        //         <td>${e.edad} años</td>
-        //         <td>${e.curso}</td>
-        //         <td>${promedioCalEstudiante[index]}</td>
-        //     </tr>
-        // `;
-        // table.appendChild(tbody);
-        listaEstudiantes.appendChild(card)
-    })
-})
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+                <h3>${e.nombre} (${e.edad} años)</h3>
+                <p>Curso: ${e.curso}</p>
+                <p>Nota promedio: ${promedio}</p>
+            `;
+            listaEstudiantes.appendChild(card);
+        });
+    }
+
+    // devuelve la porción de listaActiva correspondiente a la página
+    function obtenerPagina(pagina) {
+        const inicio = (pagina - 1) * itemsPorPagina;
+        const fin = inicio + itemsPorPagina;
+        return listaActiva.slice(inicio, fin);
+    }
+
+    // actualiza UI: número de página, estado botones y renderiza la página
+    function renderPaginaActual() {
+        const totalPaginas = Math.max(1, Math.ceil(listaActiva.length / itemsPorPagina));
+        // corregir paginaActual si quedó fuera de rango
+        if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+        if (paginaActual < 1) paginaActual = 1;
+
+        // mostrar número y estado botones
+        actual.textContent = `Página ${paginaActual} / ${totalPaginas}`;
+        btnAnterior.disabled = paginaActual === 1;
+        btnSiguiente.disabled = paginaActual === totalPaginas;
+
+        // obtener items de la página y renderizarlos (o mensaje si no hay)
+        const paginaItems = obtenerPagina(paginaActual);
+        if (paginaItems.length === 0) {
+            listaEstudiantes.innerHTML = '<p>No hay resultados.</p>';
+        } else {
+            renderEstudiantes(paginaItems);
+        }
+    }
+
+    // manejador del buscador: actualiza listaActiva y reinicia paginaActual
+    buscador.addEventListener('input', () => {
+        const texto = buscador.value.trim().toLowerCase();
+
+        if (texto === '') {
+            // vuelta al listado completo (paginar sobre el original)
+            listaActiva = [...estudiantes];
+        } else {
+            // filtrar y paginar sobre el filtrado
+            listaActiva = estudiantes.filter(e =>
+                e.nombre.toLowerCase().includes(texto) ||
+                e.curso.toLowerCase().includes(texto)
+            );
+        }
+
+        paginaActual = 1; // siempre empezar en página 1 tras filtrar
+        renderPaginaActual();
+    });
+
+    // navegación
+    btnAnterior.addEventListener('click', () => {
+        if (paginaActual > 1) {
+            paginaActual--;
+            renderPaginaActual();
+        }
+    });
+
+    btnSiguiente.addEventListener('click', () => {
+        const totalPaginas = Math.ceil(listaActiva.length / itemsPorPagina);
+        if (paginaActual < totalPaginas) {
+            paginaActual++;
+            renderPaginaActual();
+        }
+    });
+
+    // render inicial
+    renderPaginaActual();
+});
+
+
+
+
+
+
